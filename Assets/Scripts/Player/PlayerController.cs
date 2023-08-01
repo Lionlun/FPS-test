@@ -4,9 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMotor))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] int speed;
+    [SerializeField] float speed = 5;
     private PlayerMotor motor;
-
 
     void Start()
     {
@@ -15,7 +14,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-		//motor.Move(GetVelocity());
+		motor.GetMoveVelocity(GetVelocity());
 	}
 
 	private Vector3 GetVelocity()

@@ -3,15 +3,31 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerMotor : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField] Camera cam;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private Vector3 velocity = Vector3.zero;
+	private Rigidbody rb;
+
+	private void Start()
+	{
+		rb = GetComponent<Rigidbody>();
+	}
+
+	private void FixedUpdate()
+	{
+		Move();
+	}
+
+	public void GetMoveVelocity (Vector3 velocity)
+	{
+		this.velocity = velocity;
+	}
+
+	private void Move()
+	{
+        if (velocity != Vector3.zero)
+        {
+			rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
+        }
     }
 }
