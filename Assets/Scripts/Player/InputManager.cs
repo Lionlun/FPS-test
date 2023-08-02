@@ -5,18 +5,38 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public static event Action OnLMBPressed;
+    public static event Action OnFirePressed;
+    public static event Action OnJumpButtonPressed;
+	public static event Action OnReloadButtonPressed;
 
-    void Update()
+	void Update()
     {
-        SetLMBPressed();
+        SendLMBPressed();
+        SendJumpPressed();
+        SendReloadPressed();
 	}
 
-    void SetLMBPressed()
+    void SendLMBPressed()
     {
 		if (Input.GetButtonDown("Fire1"))
         {
-            OnLMBPressed?.Invoke();
+            OnFirePressed?.Invoke();
         }
+	}
+
+    void SendJumpPressed()
+    {
+        if (Input.GetButtonDown("Jump"))
+        {
+            OnJumpButtonPressed?.Invoke();
+        }
+    }
+
+    void SendReloadPressed()
+    {
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			OnReloadButtonPressed?.Invoke();
+		}
 	}
 }

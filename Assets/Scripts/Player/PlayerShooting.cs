@@ -21,11 +21,13 @@ public class PlayerShooting : MonoBehaviour
 
 	private void OnEnable()
 	{
-        InputManager.OnLMBPressed += Shoot;
+        InputManager.OnFirePressed += Shoot;
+		InputManager.OnReloadButtonPressed += Reload;
 	}
 	private void OnDisable()
 	{
-		InputManager.OnLMBPressed -= Shoot;
+		InputManager.OnFirePressed -= Shoot;
+		InputManager.OnReloadButtonPressed -= Reload;
 	}
 
 	void Shoot()
@@ -76,6 +78,7 @@ public class PlayerShooting : MonoBehaviour
 		else
 		{
 			isReloading = true;
+			pistolAnimation.PlayReloadAnimation();
 			await Task.Delay(reloadTime);
 			Weapon.Ammo = Weapon.MaxAmmo;
 			isReloading = false;

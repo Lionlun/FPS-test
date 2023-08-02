@@ -13,4 +13,9 @@ public class PistolAnimation : MonoBehaviour
 	{
 		animator.SetTrigger("OnFire");
 	}
+
+	public void PlayReloadAnimation()
+	{
+		animator.SetTrigger("Reload");
+	}
 }
