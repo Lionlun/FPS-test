@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] int maxHealth = 10;
-    int currentHealth;
+    [SerializeField] public int MaxHealth = 10;
+    public int CurrentHealth;
 
 	private void Start()
 	{
-		currentHealth = maxHealth;
+		CurrentHealth = MaxHealth;
 	}
 
 	private void Update()
 	{
-		if (currentHealth <= 0) 
+		if (CurrentHealth <= 0) 
 		{
 			Die();
 		}
@@ -20,11 +20,11 @@ public class Health : MonoBehaviour
 
 	public void TakeDamage(int damage)
 	{
-		currentHealth -= damage;
+		CurrentHealth -= damage;
 
-		if (currentHealth < 0) 
+		if (CurrentHealth < 0) 
 		{
-			currentHealth = 0;
+			CurrentHealth = 0;
 		}
 	}
 

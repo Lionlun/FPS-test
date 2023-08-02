@@ -10,10 +10,10 @@ public class PlayerShooting : MonoBehaviour
 	[SerializeField] PistolAnimation pistolAnimation;
 
 
-    public PlayerWeapon weapon;
+    public PlayerWeapon Weapon;
 
-	public ParticleSystem muzzleFlash;
-	public ParticleSystem hitEffect;
+	public ParticleSystem MuzzleFlash;
+	public ParticleSystem HitEffect;
 
 	bool isReloading;
 	int reloadTime = 1000;
@@ -30,23 +30,23 @@ public class PlayerShooting : MonoBehaviour
 
 	void Shoot()
     {
-        if (weapon.ammo <= 0)
+        if (Weapon.Ammo <= 0)
         {
             Reload();
             return;
         }
         else
         {
-			weapon.ammo--;
-			muzzleFlash.Play();
+			Weapon.Ammo--;
+			MuzzleFlash.Play();
 			pistolAnimation.PlayShotAnimation();
 
-			Debug.Log("Remaining Bullets " + weapon.ammo);
+			Debug.Log("Remaining Bullets " + Weapon.Ammo);
 			
 
 			RaycastHit hit;
 
-			if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, weapon.effectiveRange, layerMask))
+			if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Weapon.EffectiveRange, layerMask))
 			{
 				if (hit.collider.tag == TARGET_TAG)
 				{
@@ -64,7 +64,7 @@ public class PlayerShooting : MonoBehaviour
 
 	private void PlayHitEffect(Vector3 point, Vector3 normal)
 	{
-		Instantiate(hitEffect, point, Quaternion.LookRotation(normal));
+		Instantiate(HitEffect, point, Quaternion.LookRotation(normal));
 	}
 
 	private async void Reload()
@@ -77,7 +77,7 @@ public class PlayerShooting : MonoBehaviour
 		{
 			isReloading = true;
 			await Task.Delay(reloadTime);
-			weapon.ammo = weapon.maxAmmo;
+			Weapon.Ammo = Weapon.MaxAmmo;
 			isReloading = false;
 		}
 	}
