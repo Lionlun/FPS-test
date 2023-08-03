@@ -1,21 +1,15 @@
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] public int MaxHealth = 10;
     public int CurrentHealth;
+	private bool isDead;
 
 	private void Start()
 	{
 		CurrentHealth = MaxHealth;
-	}
-
-	private void Update()
-	{
-		if (CurrentHealth <= 0) 
-		{
-			Die();
-		}
 	}
 
 	public void TakeDamage(int damage)
@@ -26,12 +20,16 @@ public class Health : MonoBehaviour
 		{
 			objectHealth.TakeDamage(damage);
 		}
-	
+		else
+		{
+			CurrentHealth -= damage;
+		}
+
 		CurrentHealth -= damage;
 
-		if (CurrentHealth < 0)
+		if (CurrentHealth <= 0)
 		{
-			CurrentHealth = 0;
+			Die();
 		}
 		
 	}
