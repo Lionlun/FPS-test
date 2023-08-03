@@ -20,16 +20,33 @@ public class Health : MonoBehaviour
 
 	public void TakeDamage(int damage)
 	{
+		var objectHealth = GetComponent<IHealth>();
+
+		if (objectHealth != null)
+		{
+			objectHealth.TakeDamage(damage);
+		}
+	
 		CurrentHealth -= damage;
 
-		if (CurrentHealth < 0) 
+		if (CurrentHealth < 0)
 		{
 			CurrentHealth = 0;
 		}
+		
 	}
 
 	void Die()
 	{
-		Destroy(gameObject);
+		var objectHealth = GetComponent<IHealth>();
+
+		if (objectHealth != null)
+		{
+			objectHealth.Die();
+		}
+		else
+		{
+			Destroy(gameObject);
+		}
 	}
 }

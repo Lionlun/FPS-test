@@ -1,12 +1,12 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
     public static event Action OnFirePressed;
-    public static event Action OnJumpButtonPressed;
+	public static event Action OnFire2Pressed;
+    public static event Action OnFire2Released;
+	public static event Action OnJumpButtonPressed;
 	public static event Action OnReloadButtonPressed;
 
 	void Update()
@@ -14,6 +14,8 @@ public class InputManager : MonoBehaviour
         SendLMBPressed();
         SendJumpPressed();
         SendReloadPressed();
+        SendFire2Preessed();
+        SendFire2Released();
 	}
 
     void SendLMBPressed()
@@ -39,4 +41,20 @@ public class InputManager : MonoBehaviour
 			OnReloadButtonPressed?.Invoke();
 		}
 	}
+
+    void SendFire2Preessed()
+    {
+		if (Input.GetButtonDown("Fire2"))
+		{
+			OnFire2Pressed?.Invoke();
+		}
+	}
+
+    void SendFire2Released()
+    {
+        if (Input.GetButtonUp("Fire2"))
+        {
+            OnFire2Released?.Invoke();
+        }
+    }
 }
