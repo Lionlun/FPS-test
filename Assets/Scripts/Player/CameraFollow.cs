@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform cameraPosition;
+    [SerializeField] private Transform CameraPosition;
   
     void Update()
     {
-        transform.position = cameraPosition.position;
+        transform.position = CameraPosition.position;
     }
 }

@@ -3,21 +3,18 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-	private const string TARGET_TAG = "Target";
+	const string TARGET_TAG = "Target";
+
+	public PlayerWeapon Weapon;
+	public ParticleSystem MuzzleFlash;
+	public ParticleSystem HitEffect;
 
 	[SerializeField] Camera cam;
     [SerializeField] LayerMask layerMask;
 	[SerializeField] PistolAnimation pistolAnimation;
 
-
-    public PlayerWeapon Weapon;
-
-	public ParticleSystem MuzzleFlash;
-	public ParticleSystem HitEffect;
-
 	bool isReloading;
 	int reloadTime = 1000;
-	
 
 	private void OnEnable()
 	{
@@ -40,33 +37,19 @@ public class PlayerShooting : MonoBehaviour
         else
         {
 			Weapon.Ammo--;
-			MuzzleFlash.Play();
-			pistolAnimation.PlayShotAnimation();
-
-			Debug.Log("Remaining Bullets " + Weapon.Ammo);
-			
-
-			RaycastHit hit;
-
-			if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Weapon.EffectiveRange, layerMask))
-			{
-				if (hit.collider.tag == TARGET_TAG)
-				{
-					var targetHealth = hit.collider.gameObject.GetComponent<Health>();
-					targetHealth.TakeDamage(10); //TO DO заменить число на урон от оружия
-				}
-				
-				Debug.Log("We hit " + hit.collider.name);
-
-				PlayHitEffect(hit.point, hit.normal);
-			}
+			PlayShotEffects();
+			DetectHit();
 		}
-		
     }
 
 	private void PlayHitEffect(Vector3 point, Vector3 normal)
 	{
 		Instantiate(HitEffect, point, Quaternion.LookRotation(normal));
+	}
+	private void PlayShotEffects()
+	{
+		MuzzleFlash.Play();
+		pistolAnimation.PlayShotAnimation();
 	}
 
 	private async void Reload()
@@ -82,6 +65,22 @@ public class PlayerShooting : MonoBehaviour
 			await Task.Delay(reloadTime);
 			Weapon.Ammo = Weapon.MaxAmmo;
 			isReloading = false;
+		}
+	}
+
+	private void DetectHit()
+	{
+		RaycastHit hit;
+
+		if (Physics.Raycast(cam.transform.position, cam.transform.forward, out hit, Weapon.EffectiveRange, layerMask))
+		{
+			if (hit.collider.tag == TARGET_TAG)
+			{
+				var targetHealth = hit.collider.gameObject.GetComponent<Health>();
+				targetHealth.TakeDamage(Weapon.Damage);
+			}
+
+			PlayHitEffect(hit.point, hit.normal);
 		}
 	}
 }

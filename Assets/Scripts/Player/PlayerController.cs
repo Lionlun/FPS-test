@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float speed = 5;
-    private PlayerMotor motor;
+    PlayerMotor motor;
 
     void Start()
     {

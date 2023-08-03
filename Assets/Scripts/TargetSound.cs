@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class TargetSound : MonoBehaviour
 {
 	private AudioSource audioSource;
@@ -13,6 +14,5 @@ public class TargetSound : MonoBehaviour
 	{
 		audioSource.clip = shotSound;
 		audioSource.Play();
-
 	}
 }

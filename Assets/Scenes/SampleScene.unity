@@ -855,11 +855,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72fa37e780de2de41b5497063859addf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 2101732912}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 2147483647
-  pistolAnimation: {fileID: 1478843814}
   Weapon:
     Name: Pistol
     Damage: 1
@@ -868,6 +863,11 @@ MonoBehaviour:
     Ammo: 10
   MuzzleFlash: {fileID: 135569719}
   HitEffect: {fileID: 19800002, guid: 99c73c92ac40473459640b165473206f, type: 3}
+  cam: {fileID: 2101732912}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 2147483647
+  pistolAnimation: {fileID: 1478843814}
 --- !u!114 &526058899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1065,7 +1065,7 @@ GameObject:
   m_Component:
   - component: {fileID: 578527886}
   - component: {fileID: 578527887}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WeaponCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1482,7 +1482,7 @@ Transform:
   - {fileID: 182482552}
   - {fileID: 578527886}
   m_Father: {fileID: 2101732910}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &760420409 stripped
 Transform:
@@ -1945,6 +1945,90 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 980810604}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &996960489
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 996960490}
+  - component: {fileID: 996960493}
+  - component: {fileID: 996960492}
+  m_Layer: 0
+  m_Name: UICamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &996960490
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996960489}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2101732910}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &996960492
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996960489}
+  m_Enabled: 1
+--- !u!20 &996960493
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996960489}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 3
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 2
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 32
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
 --- !u!1001 &1007461395
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3076,7 +3160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f204242ec37989540b005e4b1d8cf054, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraPosition: {fileID: 342191910}
+  CameraPosition: {fileID: 342191910}
 --- !u!4 &1706426443 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4962597591542745876, guid: daedd6c8129dcbc43b770a20b488ad66, type: 3}
@@ -3959,6 +4043,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 996960490}
   - {fileID: 720211460}
   m_Father: {fileID: 1701121041}
   m_RootOrder: 0
@@ -4002,7 +4087,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 375
+    m_Bits: 343
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

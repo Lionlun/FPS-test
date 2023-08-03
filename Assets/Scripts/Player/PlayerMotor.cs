@@ -4,19 +4,15 @@ using UnityEngine;
 public class PlayerMotor : MonoBehaviour
 {
 	[SerializeField] Camera cam;
-
-    private Vector3 velocity = Vector3.zero;
-
-
-	private float jumpForce = 3f;
-	private bool isOnGround;
 	[SerializeField] Transform groundPoint;
 	[SerializeField] LayerMask ground;
 
+	Vector3 velocity = Vector3.zero;
 
+	float jumpForce = 3f;
+	bool isOnGround;
 
-	private Rigidbody rb;
-
+	Rigidbody rb;
 
 	private void OnEnable()
 	{

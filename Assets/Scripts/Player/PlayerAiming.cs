@@ -12,8 +12,6 @@ public class PlayerAiming : MonoBehaviour
     public Transform SightTarget;
     public float SightOffset;
     public float AimingInTime;
-    private Vector3 weaponSwayPosition;
-    private Vector3 weaponSwayPositionVelocity;
     [SerializeField] GameObject weapon;
 
 
@@ -33,10 +31,13 @@ public class PlayerAiming : MonoBehaviour
 		camDefaultPosition = cam.transform.localPosition;
 
 	}
+	void Update()
+	{
+		SetCameraADSPosition();
+	}
 
 	private void StartAiming()
     {
-        Debug.Log("IsAimimng");
         IsAiming = true;
     }
    
@@ -46,7 +47,7 @@ public class PlayerAiming : MonoBehaviour
 		crosshair.Activate();
 	}
 
-    private void CalculateAimingStart()
+    private void SetCameraADSPosition()
     {
 		if (IsAiming)
         {
@@ -57,11 +58,5 @@ public class PlayerAiming : MonoBehaviour
         {
             cam.transform.localPosition = camDefaultPosition;
         }
-	}
-
-
-    void Update()
-    {
-		CalculateAimingStart();
 	}
 }

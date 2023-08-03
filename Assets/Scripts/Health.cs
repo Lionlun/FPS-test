@@ -1,11 +1,9 @@
-using System.Threading.Tasks;
 using UnityEngine;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] public int MaxHealth = 10;
     public int CurrentHealth;
-	private bool isDead;
 
 	private void Start()
 	{
@@ -31,7 +29,6 @@ public class Health : MonoBehaviour
 		{
 			Die();
 		}
-		
 	}
 
 	void Die()
