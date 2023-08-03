@@ -11,10 +11,12 @@ public class Target : MonoBehaviour, IHealth
     [SerializeField] private TargetTakeDamageUI targetTakeDamageUI;
     [SerializeField] private ParticleSystem targetDestructionEffect;
 	MeshRenderer meshRenderer;
+	PlayerController playerController;
   
 
 	void Start()
 	{
+		playerController = FindObjectOfType<PlayerController>();
 		meshRenderer = GetComponent<MeshRenderer>();
 		targetSound = GetComponent<TargetSound>();
 		spawner = FindObjectOfType<TargetSpawner>();
@@ -38,11 +40,16 @@ public class Target : MonoBehaviour, IHealth
 	}
     public void TakeDamage(int damage)
     {
-		Instantiate(targetTakeDamageUI, transform.position + offset, Quaternion.identity);
+		ShowDamage();
 		targetSound.PlayShotSound();
 	}
     private void Move()
     { 
         transform.position = startPosition + new Vector3(Mathf.Sin(Time.time), 0, 0) * speed;
     }
+	private void ShowDamage()
+	{
+		offset = (playerController.transform.position - transform.position).normalized;
+		Instantiate(targetTakeDamageUI, transform.position + offset, Quaternion.identity);
+	}
 }
