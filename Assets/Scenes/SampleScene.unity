@@ -979,6 +979,7 @@ GameObject:
   - component: {fileID: 526058899}
   - component: {fileID: 526058896}
   - component: {fileID: 526058895}
+  - component: {fileID: 526058904}
   - component: {fileID: 526058898}
   - component: {fileID: 526058900}
   m_Layer: 0
@@ -1017,17 +1018,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b2a96daf23804e4e830b6a1eaf4e396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerPosition: 0
-  StandStance:
-    CameraHeight: 0.5
-    PlayerHeight: 2.5
-  CrouchStance:
-    CameraHeight: 0.12
-    PlayerHeight: 1.5
-  LayStance:
-    CameraHeight: 0.03
-    PlayerHeight: 0.5
-  cameraPosition: {fileID: 342191910}
+  playerStanceHandler: {fileID: 526058904}
   speed: 5
 --- !u!114 &526058896
 MonoBehaviour:
@@ -1115,10 +1106,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 578527886}
   crosshair: {fileID: 697688157}
-  IsAiming: 0
-  SightTarget: {fileID: 0}
-  SightOffset: 0
-  AimingInTime: 0
 --- !u!136 &526058903
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1133,6 +1120,29 @@ CapsuleCollider:
   m_Height: 1.83
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &526058904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 526058892}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70105cc0c16fcf14db05f06691172039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerPosition: 0
+  StandStance:
+    CameraHeight: 0.5
+    PlayerHeight: 2.5
+  CrouchStance:
+    CameraHeight: 0.12
+    PlayerHeight: 1.5
+  LayStance:
+    CameraHeight: 0.03
+    PlayerHeight: 0.5
+  cameraPosition: {fileID: 342191910}
 --- !u!1 &544241912
 GameObject:
   m_ObjectHideFlags: 0

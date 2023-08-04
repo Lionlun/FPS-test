@@ -3,15 +3,12 @@ using UnityEngine;
 
 public class PlayerAiming : MonoBehaviour
 {
-    [SerializeField] Transform cam;
+	[SerializeField] Transform cam;
     [SerializeField] Crosshair crosshair;
     Vector3 camDefaultPosition;
     Vector3 camADSPosition = new Vector3 (0.239f, -0.0256f, 0.04f);
-    public bool IsAiming;
 
-    public Transform SightTarget;
-    public float SightOffset;
-    public float AimingInTime;
+	private bool isAiming;
 
 	private void OnEnable()
 	{
@@ -36,18 +33,18 @@ public class PlayerAiming : MonoBehaviour
 
 	private void StartAiming()
     {
-        IsAiming = true;
+        isAiming = true;
     }
    
     private void StopAiming()
     {
-		IsAiming = false;
+		isAiming = false;
 		crosshair.Activate();
 	}
 
     private void SetCameraADSPosition()
     {
-		if (IsAiming)
+		if (isAiming)
         {
 			crosshair.Deactivate();
 			cam.transform.localPosition = camADSPosition;

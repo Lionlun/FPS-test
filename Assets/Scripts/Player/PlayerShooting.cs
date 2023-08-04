@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-	const string TARGET_TAG = "Target";
-
 	public PlayerWeapon Weapon;
 	public ParticleSystem MuzzleFlash;
 	public ParticleSystem HitEffect;
@@ -15,6 +13,8 @@ public class PlayerShooting : MonoBehaviour
 
 	bool isReloading;
 	int reloadTime = 1000;
+
+	const string TARGET_TAG = "Target";
 
 	void OnEnable()
 	{

@@ -4,6 +4,8 @@ using UnityEngine;
 public class HintTrigger : MonoBehaviour
 {
 	[SerializeField] TextMeshProUGUI popupText;
+	const string PLAYER_TAG = "Player";
+
 	void PopupHint()
 	{
 		popupText.gameObject.SetActive(true);
@@ -16,17 +18,15 @@ public class HintTrigger : MonoBehaviour
 
 	private void OnTriggerStay(Collider other)
 	{
-		if (other.gameObject.tag == "Player")
+		if (other.gameObject.tag == PLAYER_TAG)
 		{
-			Debug.Log("Player Entered");
 			PopupHint();
 		}
 	}
 	private void OnTriggerExit(Collider other)
 	{
-		if (other.gameObject.tag == "Player")
+		if (other.gameObject.tag == PLAYER_TAG)
 		{
-			Debug.Log("Player Exit");
 			HideHint();
 		}
 	}
