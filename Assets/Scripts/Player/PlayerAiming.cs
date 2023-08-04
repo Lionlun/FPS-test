@@ -6,14 +6,12 @@ public class PlayerAiming : MonoBehaviour
     [SerializeField] Transform cam;
     [SerializeField] Crosshair crosshair;
     Vector3 camDefaultPosition;
-    Vector3 camADSPosition = new Vector3 (-0.001f, 0.095f, -0.5f);
+    Vector3 camADSPosition = new Vector3 (0.239f, -0.0256f, 0.04f);
     public bool IsAiming;
 
     public Transform SightTarget;
     public float SightOffset;
     public float AimingInTime;
-    [SerializeField] GameObject weapon;
-
 
 	private void OnEnable()
 	{

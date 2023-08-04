@@ -16,12 +16,12 @@ public class PlayerShooting : MonoBehaviour
 	bool isReloading;
 	int reloadTime = 1000;
 
-	private void OnEnable()
+	void OnEnable()
 	{
         InputManager.OnFirePressed += Shoot;
 		InputManager.OnReloadButtonPressed += Reload;
 	}
-	private void OnDisable()
+	void OnDisable()
 	{
 		InputManager.OnFirePressed -= Shoot;
 		InputManager.OnReloadButtonPressed -= Reload;
@@ -42,17 +42,17 @@ public class PlayerShooting : MonoBehaviour
 		}
     }
 
-	private void PlayHitEffect(Vector3 point, Vector3 normal)
+	void PlayHitEffect(Vector3 point, Vector3 normal)
 	{
 		Instantiate(HitEffect, point, Quaternion.LookRotation(normal));
 	}
-	private void PlayShotEffects()
+	void PlayShotEffects()
 	{
 		MuzzleFlash.Play();
 		pistolAnimation.PlayShotAnimation();
 	}
 
-	private async void Reload()
+	async void Reload()
 	{
 		if (isReloading)
 		{
@@ -68,7 +68,7 @@ public class PlayerShooting : MonoBehaviour
 		}
 	}
 
-	private void DetectHit()
+	void DetectHit()
 	{
 		RaycastHit hit;
 

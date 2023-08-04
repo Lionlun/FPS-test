@@ -4,17 +4,17 @@ using UnityEngine;
 public class AmmoUI : MonoBehaviour
 {
     [SerializeField] PlayerShooting playerShooting;
-    PlayerWeapon playerWeapon;
+    PlayerWeapon weapon;
     TextMeshProUGUI ammoText;
 
     void Start()
     {
-        playerWeapon = playerShooting.Weapon;
-        ammoText = GetComponent<TextMeshProUGUI>();
-    }
+		weapon = playerShooting.Weapon;
+		ammoText = GetComponent<TextMeshProUGUI>();
+	}
 
     void Update()
     {
-		ammoText.text = $"Ammo: {playerWeapon.Ammo} / {playerWeapon.MaxAmmo}";
+		ammoText.text = $"Ammo: {weapon.Ammo} / {weapon.MaxAmmo}";
     }
 }

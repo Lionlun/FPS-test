@@ -1,12 +1,19 @@
+using TMPro;
 using UnityEngine;
 
 public class TargetTakeDamageUI : MonoBehaviour
 {	
 	float speed = 5;
 	private PlayerCamera cam;
+	TextMeshProUGUI damageText;
+	PlayerWeapon playerWeapon;
 
 	private void Start()
 	{
+		damageText = GetComponentInChildren<TextMeshProUGUI>();
+		playerWeapon = FindObjectOfType<PlayerShooting>().Weapon;
+		damageText.text = playerWeapon.Damage.ToString();
+		damageText = GetComponentInChildren<TextMeshProUGUI>();
 		cam = FindObjectOfType<PlayerCamera>();
         Destroy(gameObject, 1);
 	}

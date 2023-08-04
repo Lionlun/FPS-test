@@ -9,17 +9,18 @@ public class Target : MonoBehaviour, IHealth
 	private Vector3 offset = new Vector3(0, 0, -1);
     private float speed = 10;
     private Vector3 startPosition;
+
     private TargetSpawner spawner;
     private TargetSound targetSound;
-
 	private MeshRenderer meshRenderer;
+	private MeshCollider meshCollider;
 	private PlayerController playerController;
-  
 
 	private void Start()
 	{
 		playerController = FindObjectOfType<PlayerController>();
 		meshRenderer = GetComponent<MeshRenderer>();
+		meshCollider = GetComponent<MeshCollider>();
 		targetSound = GetComponent<TargetSound>();
 		spawner = FindObjectOfType<TargetSpawner>();
 		startPosition = new Vector3(Random.Range(-4, 4), transform.position.y, transform.position.z);
@@ -34,6 +35,7 @@ public class Target : MonoBehaviour, IHealth
     {
 		targetSound.PlayShotSound();
 		meshRenderer.enabled = false;
+		meshCollider.enabled = false;
 		PlayDestroyEffect();
 		await Task.Delay(1000);
 		spawner.SpawnTarget();
