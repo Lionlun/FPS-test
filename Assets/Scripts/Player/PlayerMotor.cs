@@ -9,7 +9,7 @@ public class PlayerMotor : MonoBehaviour
 
 	Vector3 velocity = Vector3.zero;
 
-	float jumpForce = 3f;
+	float jumpForce = 6f;
 	bool isOnGround;
 
 	Rigidbody rb;

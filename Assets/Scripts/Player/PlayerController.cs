@@ -5,17 +5,19 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerMotor))]
 public class PlayerController : MonoBehaviour
 {
+	public PlayerPosition PlayerPosition;
+	public PlayerStance StandStance;
+	public PlayerStance CrouchStance;
+	public PlayerStance LayStance;
 
-	public PlayerPosition playerPosition;
-	public float cameraStandHeight;
-	public float cameraCrouchHeight;
-	public float cameraLayHeight;
-	public float playerPositionSmoothing = 1;
+	private CapsuleCollider playerCollider;
+
+	private float PlayerPositionSmoothing = 1;
+	private float changeStanceSpeed = 2f;
 
 	private float cameraHeight;
 	private float cameraHeightVelocity = 2;
 
-	
 	[SerializeField] Transform cameraPosition;
 
 	[SerializeField] float speed = 5;
@@ -23,8 +25,6 @@ public class PlayerController : MonoBehaviour
 	float sprintBoost = 1;
     PlayerMotor motor;
     bool isSprinting;
-
-	
 
 	private void OnEnable()
 	{
@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
 
 	void Start()
     {
+		playerCollider = GetComponent<CapsuleCollider>();
 		cameraHeight = cameraPosition.localPosition.y;
 	    motor = GetComponent<PlayerMotor>();
     }
@@ -53,12 +54,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 		motor.GetMoveVelocity(GetVelocity());
-	
+		
 	}
 
 	private void LateUpdate()
 	{
-		GetCameraHeight();
+		GetStance();
 	}
 
 	private Vector3 GetVelocity()
@@ -78,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
 	private float GetSpeedcoefficient()
 	{
-		switch (playerPosition)
+		switch (PlayerPosition)
 		{
 			case PlayerPosition.Stand:
 				speedCoefficient = 1;
@@ -117,43 +118,45 @@ public class PlayerController : MonoBehaviour
 		isSprinting = false;
 	}
 
-	private void GetCameraHeight()
+	private void GetStance()
 	{
-		var positionHeight = cameraStandHeight;
+		var currentStance = StandStance;
 
-		if (playerPosition == PlayerPosition.Crouch)
+		if (PlayerPosition == PlayerPosition.Crouch)
 		{
-			positionHeight = cameraCrouchHeight;
+			currentStance = CrouchStance;
 		}
-		else if(playerPosition == PlayerPosition.Lay)
+		else if(PlayerPosition == PlayerPosition.Lay)
 		{
-			positionHeight = cameraLayHeight;
+			currentStance = LayStance;
 		}
 
-		cameraHeight = Mathf.SmoothDamp(cameraPosition.localPosition.y, positionHeight, ref cameraHeightVelocity, playerPositionSmoothing);
+		cameraHeight = Mathf.SmoothDamp(cameraPosition.localPosition.y, currentStance.CameraHeight, ref cameraHeightVelocity, PlayerPositionSmoothing);
 		cameraPosition.localPosition = new Vector3(0, cameraHeight, 0);
+
+		playerCollider.height = Mathf.SmoothDamp(playerCollider.height, currentStance.PlayerHeight, ref changeStanceSpeed, PlayerPositionSmoothing);
 	}
 
 	private void Crouch()
 	{
-		if (playerPosition != PlayerPosition.Crouch)
+		if (PlayerPosition != PlayerPosition.Crouch)
 		{
-			playerPosition = PlayerPosition.Crouch;
+			PlayerPosition = PlayerPosition.Crouch;
 		}
 		else
 		{
-			playerPosition = PlayerPosition.Stand;
+			PlayerPosition = PlayerPosition.Stand;
 		}
 	}
 	private void Lay()
 	{
-		if (playerPosition != PlayerPosition.Lay)
+		if (PlayerPosition != PlayerPosition.Lay)
 		{
-			playerPosition = PlayerPosition.Lay;
+			PlayerPosition = PlayerPosition.Lay;
 		}
 		else
 		{
-			playerPosition = PlayerPosition.Stand;
+			PlayerPosition = PlayerPosition.Stand;
 		}
 	}
 }
