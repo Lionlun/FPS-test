@@ -1,21 +1,26 @@
-
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerMotor))]
 public class PlayerController : MonoBehaviour
 {
-	[SerializeField] PlayerStanceHandler playerStanceHandler;
-
-	CapsuleCollider playerCollider;
-
+	#region CharacterMovementParameters
+	[SerializeField] float jumpForce = 6f;
 	[SerializeField] float speed = 5;
+	[SerializeField] float sprintBoostValue = 1.3f;
+	[SerializeField] float standSpeedCoefficient = 1;
+	[SerializeField] float crouchSpeedCoefficient = 0.5f;
+	[SerializeField] float laySpeedCoefficient = 0.2f;
+	#endregion
+
+	[SerializeField] PlayerStanceHandler playerStanceHandler;
+	CapsuleCollider playerCollider;
+	PlayerMotor motor;
+
 	float speedCoefficient = 1;
-	float sprintBoost = 1;
-    PlayerMotor motor;
+	float noSprintBoost = 1;
+	float sprintBoost;
     bool isSprinting;
 	float distanceToGround;
-	float jumpForce = 6f;
-
 
 	private void OnEnable()
 	{
@@ -54,39 +59,39 @@ public class PlayerController : MonoBehaviour
 
 		Vector3 velocity = (lateralMovement + forwardMovement).normalized * speed;
 
-		velocity *= GetSpeedCoefficient();
+		velocity *= CalculateSpeedCoefficient();
         
         return velocity;
 	}
 
-	private float GetSpeedCoefficient()
+	private float CalculateSpeedCoefficient()
 	{
 		switch (playerStanceHandler.PlayerPosition)
 		{
 			case PlayerPosition.Stand:
-				speedCoefficient = 1;
+				speedCoefficient = standSpeedCoefficient;
 				break;
 			case PlayerPosition.Crouch:
-				speedCoefficient = 0.5f;
+				speedCoefficient = crouchSpeedCoefficient;
 				break;
 			case PlayerPosition.Lay:
-				speedCoefficient = 0.2f;
+				speedCoefficient = laySpeedCoefficient;
 				break;
 		}
 
-		var totalSpeedCoefficient = GetSprintBoost() * speedCoefficient;
+		var totalSpeedCoefficient = CalculateSprintBoost() * speedCoefficient;
 		return totalSpeedCoefficient;
 	}
 
-	private float GetSprintBoost()
+	private float CalculateSprintBoost()
 	{
 		if (isSprinting)
 		{
-			sprintBoost = 1.3f;
+			sprintBoost = sprintBoostValue;
 		}
 		else
 		{
-			sprintBoost = 1;
+			sprintBoost = noSprintBoost;
 		}
 		return sprintBoost;
 	}
@@ -107,7 +112,6 @@ public class PlayerController : MonoBehaviour
 
 	bool CheckGround()
 	{
-		Debug.Log(Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.4f));
 		return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.4f);
 	}
 }
