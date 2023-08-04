@@ -9,22 +9,11 @@ public class PlayerMotor : MonoBehaviour
 
 	Vector3 velocity = Vector3.zero;
 
-	float jumpForce = 6f;
-	bool isOnGround;
-
 	Rigidbody rb;
-
-	private void OnEnable()
-	{
-		InputManager.OnJumpButtonPressed += Jump;
-	}
-	private void OnDisable()
-	{
-		InputManager.OnJumpButtonPressed -= Jump;
-	}
 
 	private void Start()
 	{
+		
 		rb = GetComponent<Rigidbody>();
 	}
 
@@ -46,20 +35,11 @@ public class PlayerMotor : MonoBehaviour
         }
     }
 
-	private void Jump()
+	public void Jump(bool isGrounded, float jumpForce)
 	{
-		if (isOnGround)
+		if (isGrounded)
 		{
 			rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-			isOnGround = false;
-		}
-	}
-
-	private void OnCollisionEnter(Collision collision)
-	{
-		if (collision.gameObject.tag == "Ground")
-		{
-			isOnGround = true;
 		}
 	}
 }

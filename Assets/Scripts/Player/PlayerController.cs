@@ -12,8 +12,8 @@ public class PlayerController : MonoBehaviour
 
 	private CapsuleCollider playerCollider;
 
-	private float PlayerPositionSmoothing = 1;
-	private float changeStanceSpeed = 2f;
+	private float PlayerPositionSmoothing = 0.1f;
+	private float changeStanceSpeed = 6f;
 
 	private float cameraHeight;
 	private float cameraHeightVelocity = 2;
@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
 	float sprintBoost = 1;
     PlayerMotor motor;
     bool isSprinting;
+	float distanceToGround;
+	float jumpForce = 6f;
+
 
 	private void OnEnable()
 	{
@@ -33,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
 		InputManager.OnCrouchButtonPressed += Crouch;
 		InputManager.OnLayButtonPressed += Lay;
+
+		InputManager.OnJumpButtonPressed += SendJump;
 	}
 
 	private void OnDisable()
@@ -42,11 +47,14 @@ public class PlayerController : MonoBehaviour
 
 		InputManager.OnCrouchButtonPressed -= Crouch;
 		InputManager.OnLayButtonPressed -= Lay;
+
+		InputManager.OnJumpButtonPressed -= SendJump;
 	}
 
 	void Start()
     {
 		playerCollider = GetComponent<CapsuleCollider>();
+		distanceToGround = playerCollider.bounds.extents.y;
 		cameraHeight = cameraPosition.localPosition.y;
 	    motor = GetComponent<PlayerMotor>();
     }
@@ -54,7 +62,9 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 		motor.GetMoveVelocity(GetVelocity());
-		
+		CheckGround();
+
+
 	}
 
 	private void LateUpdate()
@@ -159,4 +169,15 @@ public class PlayerController : MonoBehaviour
 			PlayerPosition = PlayerPosition.Stand;
 		}
 	}
+	void SendJump()
+	{
+		motor.Jump(CheckGround(), jumpForce);
+	}
+
+	bool CheckGround()
+	{
+		Debug.Log(Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.4f));
+		return Physics.Raycast(transform.position, Vector3.down, distanceToGround + 0.4f);
+	}
+
 }
